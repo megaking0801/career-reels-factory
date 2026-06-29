@@ -6,6 +6,97 @@
 
 > avatar 工具選擇：原本規劃 HeyGen，因免費版浮水印＋下載受限已棄用，改用 **Kling 對口型**（支援中文、可鎖定同一張臉、能做走動運鏡）。
 
+## 安裝（Windows / PowerShell）
+
+> ⚠️ 兩個關鍵前置：
+> 1. **要用 Python 3.12，不要用最新的 3.13/3.14**：faster-whisper 的依賴（onnxruntime / av）在太新的 Python 可能沒有對應套件。
+> 2. **ffmpeg 要能用字幕功能**：本工具需要 `subtitles` 與 `drawtext` filter，才能燒字幕與疊開場字卡。
+
+```powershell
+# 1. 安裝系統工具
+winget install --id Python.Python.3.12 -e
+winget install --id Gyan.FFmpeg -e
+
+# 安裝完請關掉 PowerShell 重開，讓 PATH 生效
+```
+
+重開 PowerShell 後驗證：
+
+```powershell
+py -3.12 --version
+ffmpeg -version
+ffmpeg -hide_banner -filters | Select-String "subtitles|drawtext"
+```
+
+如果最後一行看不到 `subtitles` 和 `drawtext`，請改裝 FFmpeg full build，並確認 `ffmpeg.exe` 所在的 `bin` 資料夾已加入 PATH。
+
+建立 Python 環境：
+
+```powershell
+# 從 repo 根目錄進入真正的 App 資料夾
+cd .\career-reels-factory
+
+py -3.12 -m venv .venv
+
+# 如果啟用 venv 被 PowerShell 執行政策擋住，先跑這行，只影響目前視窗
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+也可以直接用專案附的安裝腳本：
+
+```powershell
+cd .\career-reels-factory
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\setup_windows.ps1
+```
+
+設定金鑰：
+
+```powershell
+Copy-Item .env.example .env
+notepad .env
+```
+
+在 `.env` 裡填入：
+
+```dotenv
+GROQ_API_KEY=你的 Groq key
+SCRIPT_PROVIDER=auto
+```
+
+Windows 通常會自動偵測微軟正黑體；如果字卡或字幕中文字型不正常，可在 `.env` 加上：
+
+```dotenv
+CJK_FONT=C:/Windows/Fonts/msjh.ttc
+CJK_FONT_NAME=Microsoft JhengHei
+```
+
+## 啟動（Windows / PowerShell）
+
+```powershell
+cd .\career-reels-factory
+.\.venv\Scripts\Activate.ps1
+uvicorn app.main:app --reload
+```
+
+或直接執行：
+
+```powershell
+.\run_windows.ps1
+```
+
+開瀏覽器：
+
+```text
+http://localhost:8000
+```
+
+> 第一次合成影片時，faster-whisper 會自動下載語音模型（約數百 MB），需要網路、會等一下；之後就快。
+
 ## 安裝（macOS）
 
 > ⚠️ 兩個關鍵前置跟一般直覺不同，照下面做：
@@ -34,7 +125,7 @@ cp .env.example .env
 # 或填 ANTHROPIC_API_KEY 改用 Claude（繁中更好）
 ```
 
-## 啟動
+## 啟動（macOS）
 
 ```bash
 source .venv/bin/activate

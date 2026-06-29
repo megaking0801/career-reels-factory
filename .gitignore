@@ -15,5 +15,10 @@ venv/
 **/data/incoming/
 **/data/output/
 
+# 零散的測試 / 暫存媒體（成品請看 data/output，不要 commit 這些）
+voiceover_*.mp3
+**/test_short.mp3
+/Untitled video.mp4
+
 # 系統
 .DS_Store

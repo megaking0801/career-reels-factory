@@ -103,3 +103,17 @@ table.tools th, table.tools td {
   text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border);
 }
 table.tools th { color: var(--muted); font-weight: 600; }
+
+.avatar-prep {
+  margin: 10px 0; padding: 10px 12px;
+  background: rgba(91,140,255,.07);
+  border: 1px solid var(--border); border-left: 3px solid var(--accent);
+  border-radius: 9px;
+}
+.avatar-prep .prep-title { font-size: 13px; color: var(--text); font-weight: 600; margin-bottom: 6px; }
+.avatar-prep .copybar { margin: 6px 0; flex-wrap: wrap; }
+a.ghost.dl {
+  display: inline-block; padding: 9px 14px; border-radius: 9px;
+  background: var(--panel2); border: 1px solid var(--border);
+  color: var(--text); font-size: 14px; text-decoration: none;
+}

@@ -83,11 +83,20 @@ function scriptBlock(job) {
       <div class="hint">🎥 畫面建議：${esc(s.scene_notes)}</div>
     </div>
     <div class="copybar">
-      <button class="ghost" onclick='copyText(${JSON.stringify(heygen)}, this)'>📋 複製口播逐字稿（貼 Kling）</button>
+      <button class="ghost" onclick='copyText(${JSON.stringify(heygen)}, this)'>📋 複製口播逐字稿</button>
       <button class="ghost" onclick='copyText(${JSON.stringify(full)}, this)'>📋 複製完整腳本</button>
       <code>來源：${esc(s._provider || "")}</code>
     </div>
-    <div class="hint">💡 開場字卡與畫面建議「不用」貼到 Kling：字卡工具會自動疊上畫面，畫面建議是給你拍攝/運鏡參考。</div>`;
+    <div class="avatar-prep">
+      <div class="prep-title">🚶 做「邊走邊講」avatar（拿去 A2E / JAI Portal 用 OmniHuman，免費額度）</div>
+      <div class="copybar">
+        ${job.voiceover ? `<a class="ghost dl" href="${job.voiceover}" download>⬇ 下載口播語音 mp3</a>` : `<span class="hint">（口播語音產生中或不可用）</span>`}
+        ${s.scene_prompt ? `<button class="ghost" onclick='copyText(${JSON.stringify(s.scene_prompt)}, this)'>📋 複製走動場景 prompt</button>` : ""}
+      </div>
+      <div class="hint">步驟：上傳「固定角色圖 ＋ 上面的口播語音 mp3 ＋ 走動場景 prompt」→ 生成無浮水印的走動 avatar → 下載 mp4 → 回到這裡上傳。<br>用我們的 mp3 當音軌，字幕才會精準對齊。</div>
+      ${job.voice_error ? `<div class="hint" style="color:#e0a040">⚠ ${esc(job.voice_error)}</div>` : ""}
+    </div>
+    <div class="hint">💡 開場字卡（藏鏡人提問）與畫面建議「不用」餵給 avatar 工具：字卡會在合成時自動疊上，畫面建議是給你挑場景/運鏡參考。</div>`;
 }
 
 function regenBlock(job) {
@@ -97,7 +106,7 @@ function regenBlock(job) {
 function uploadBlock(job) {
   return `
     <div class="upload">
-      <div class="hint">在 Kling 用上面的逐字稿/語音做好 avatar 影片後，把 mp4 丟回來：</div>
+      <div class="hint">做好無浮水印的走動 avatar 影片後，把 mp4 丟回來，自動上繁體字幕＋疊藏鏡人提問＋轉直式：</div>
       <input type="file" accept="video/mp4,video/quicktime" onchange="uploadVideo('${job.id}', this)" />
     </div>`;
 }

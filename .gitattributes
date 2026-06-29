@@ -1,0 +1,8 @@
+# 預設：文字檔自動正規化行尾
+* text=auto
+
+# Shell scripts 一定要 LF，否則在 macOS / Linux 會 bad interpreter
+*.sh text eol=lf
+
+# PowerShell 用 CRLF 較保險
+*.ps1 text eol=crlf

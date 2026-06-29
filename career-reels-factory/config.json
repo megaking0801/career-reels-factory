@@ -19,11 +19,17 @@
     "面試被問最大缺點怎麼答",
     "離職時最聰明的講法"
   ],
+  "voice": "學長",
   "caption": {
-    "font_size": 18,
+    "font_size": 60,
     "primary_color": "&H00FFFFFF",
     "outline_color": "&H00000000",
-    "margin_v": 150
+    "outline": 4,
+    "margin_v": 210,
+    "margin_h": 70,
+    "max_chars": 15,
+    "q_font_size": 46,
+    "q_wrap": 16
   },
   "output_resolution": "1080x1920",
   "whisper_model": "small"

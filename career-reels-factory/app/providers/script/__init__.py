@@ -4,13 +4,18 @@
 之後要換 LLM 只要新增一個 provider 模組 + 在這裡接上即可。
 """
 import os
+from pathlib import Path
 
+from dotenv import load_dotenv
 from app.providers import prompts
 from . import groq as groq_provider
 from . import claude as claude_provider
 
+_ENV_PATH = Path(__file__).resolve().parents[3] / ".env"
+
 
 def _pick() -> str | None:
+    load_dotenv(_ENV_PATH, override=True)
     pref = os.environ.get("SCRIPT_PROVIDER", "auto").lower()
     if pref == "claude":
         return "claude"

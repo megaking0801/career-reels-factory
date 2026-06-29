@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from fastapi import (
     BackgroundTasks, FastAPI, File, Form, HTTPException, UploadFile,
 )
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 load_dotenv()
@@ -58,6 +59,14 @@ async def delete_job(job_id: str):
     if not jobs.delete(job_id):
         raise HTTPException(404, "找不到 job")
     return {"ok": True}
+
+
+@app.get("/api/jobs/{job_id}/voiceover")
+async def get_voiceover(job_id: str):
+    mp3 = jobs.INCOMING / job_id / "voiceover.mp3"
+    if not mp3.exists():
+        raise HTTPException(404, "這個任務還沒有口播語音")
+    return FileResponse(str(mp3), media_type="audio/mpeg", filename=f"voiceover_{job_id}.mp3")
 
 
 @app.post("/api/jobs/{job_id}/retry-script")

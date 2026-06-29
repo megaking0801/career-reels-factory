@@ -1,0 +1,105 @@
+:root {
+  --bg: #0f1115;
+  --panel: #1a1d24;
+  --panel2: #22262f;
+  --text: #e8eaed;
+  --muted: #9aa3af;
+  --accent: #5b8cff;
+  --ok: #36c275;
+  --warn: #f0a73a;
+  --err: #f0584a;
+  --border: #2d323c;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  line-height: 1.6;
+}
+header { padding: 28px 20px 8px; text-align: center; }
+header h1 { margin: 0; font-size: 24px; }
+.sub { color: var(--muted); margin: 6px 0 0; font-size: 14px; }
+main { max-width: 760px; margin: 0 auto; padding: 16px 20px 60px; }
+.panel {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px; margin-bottom: 20px;
+}
+.panel h2 { margin: 0 0 14px; font-size: 16px; }
+label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+input, select {
+  width: 100%; margin-top: 5px; padding: 10px 12px;
+  background: var(--panel2); border: 1px solid var(--border);
+  border-radius: 9px; color: var(--text); font-size: 14px;
+}
+.row { display: flex; gap: 14px; }
+.row label { flex: 1; }
+button {
+  background: var(--accent); color: #fff; border: 0; border-radius: 9px;
+  padding: 11px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+button.ghost { background: var(--panel2); border: 1px solid var(--border); color: var(--text); }
+button:hover { opacity: 0.92; }
+
+.job {
+  background: var(--panel2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px; margin-bottom: 14px;
+}
+.job-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.job-title { font-weight: 600; }
+.head-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.del {
+  background: transparent; border: 1px solid var(--border); color: var(--muted);
+  padding: 4px 9px; border-radius: 8px; font-size: 13px; line-height: 1;
+}
+.del:hover { color: var(--err); border-color: var(--err); opacity: 1; }
+.actions { display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+.redo { margin-top: 8px; }
+.redo summary { font-size: 13px; color: var(--muted); cursor: pointer; }
+.badge { font-size: 12px; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+.badge.created, .badge.processing { background: rgba(240,167,58,.15); color: var(--warn); }
+.badge.script_ready { background: rgba(91,140,255,.15); color: var(--accent); }
+.badge.done { background: rgba(54,194,117,.15); color: var(--ok); }
+.badge.failed { background: rgba(240,88,74,.15); color: var(--err); }
+.meta { font-size: 12px; color: var(--muted); margin: 2px 0 10px; }
+
+.script-box {
+  background: #14171d; border: 1px solid var(--border); border-radius: 9px;
+  padding: 12px; margin: 10px 0; font-size: 13px; white-space: pre-wrap;
+}
+.script-box .q { color: var(--accent); }
+.copybar { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
+.copybar code { font-size: 12px; color: var(--muted); }
+.hint { font-size: 12px; color: var(--muted); margin: 6px 0; }
+.err { color: var(--err); font-size: 13px; margin: 8px 0; }
+video { width: 100%; max-width: 280px; border-radius: 10px; margin-top: 10px; display: block; }
+a.dl { color: var(--accent); font-size: 13px; }
+.upload { margin-top: 10px; }
+.empty { color: var(--muted); font-size: 14px; }
+
+/* 分頁 */
+.tabs { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
+.tab {
+  background: var(--panel2); border: 1px solid var(--border); color: var(--muted);
+  padding: 8px 18px; border-radius: 20px; font-size: 14px;
+}
+.tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* 指南 */
+.flow { margin: 0; padding-left: 20px; font-size: 14px; }
+.flow li { margin-bottom: 8px; }
+.flow b { color: var(--text); }
+.bigtext {
+  width: 100%; background: #14171d; border: 1px solid var(--border);
+  border-radius: 9px; color: var(--text); font-size: 13px; line-height: 1.7;
+  padding: 12px; font-family: inherit; resize: vertical;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.chip {
+  background: rgba(91,140,255,.15); color: var(--accent);
+  padding: 4px 12px; border-radius: 20px; font-size: 13px;
+}
+table.tools { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.tools th, table.tools td {
+  text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border);
+}
+table.tools th { color: var(--muted); font-weight: 600; }

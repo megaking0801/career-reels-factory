@@ -1,0 +1,19 @@
+# 祕密：絕不上傳（含 API 金鑰）
+.env
+**/.env
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+**/.venv/
+
+# 工具產生的資料/成品
+**/data/jobs/
+**/data/incoming/
+**/data/output/
+
+# 系統
+.DS_Store

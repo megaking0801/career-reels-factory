@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>職場短影音內容工廠</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>🎬 職場短影音內容工廠</h1>
+    <p class="sub">選主題（或全自動）→ 產腳本 → 拿去 Kling 做 avatar → 回傳 → 自動上字幕轉直式</p>
+    <nav class="tabs">
+      <button class="tab active" data-view="make">🎬 製作</button>
+      <button class="tab" data-view="guide">📖 指南</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== 製作 ===== -->
+    <div id="view-make">
+      <section class="panel">
+        <h2>① 選方向，或全部交給 AI</h2>
+        <form id="job-form">
+          <div class="row">
+            <label>內容線
+              <select name="pillar" id="pillar"></select>
+            </label>
+            <label>主題（可選，預設讓 AI 出題）
+              <select name="topic" id="topic"></select>
+            </label>
+          </div>
+          <label>調整方向 / 語氣（選填）
+            <input name="notes" placeholder="例：偏新鮮人、口氣再嗆一點" />
+          </label>
+          <button type="submit">產生腳本 →</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>② 製作中 / 成果</h2>
+        <div id="jobs"></div>
+      </section>
+    </div>
+
+    <!-- ===== 指南 ===== -->
+    <div id="view-guide" hidden>
+      <section class="panel">
+        <h2>🧭 完整流程（一支影片從 0 到發 IG）</h2>
+        <ol class="flow">
+          <li><b>（一次性）做角色圖</b>：用 ChatGPT 生一張固定的「虛擬前輩」臉，之後每支都用同一張。prompt 見下方，可一鍵複製。</li>
+          <li><b>產腳本</b>：到「🎬 製作」分頁，選內容線/主題（都可留空 → AI 自動出題）→ 產生腳本。</li>
+          <li><b>複製口播</b>：腳本卡按「📋 複製口播逐字稿」。</li>
+          <li><b>Kling 做影片</b>：用「角色圖 + 口播語音」做對口型 mp4、下載（步驟見下）。</li>
+          <li><b>上傳回來</b>：在腳本卡上傳 mp4 → 工具自動上字幕＋疊開場問題字卡＋轉 9:16。</li>
+          <li><b>下載成品 → 手動發 IG Reels</b>。</li>
+        </ol>
+        <p class="hint">雙聲設計：avatar 只負責「前輩回答」；「藏鏡人提問」是工具合成時自動疊上的字卡，所以要上傳回工具才看得到完整成品。</p>
+      </section>
+
+      <section class="panel">
+        <h2>🧑‍💼 角色圖 prompt（貼到 ChatGPT 生圖）</h2>
+        <textarea id="char-prompt" class="bigtext" readonly rows="12">請生成一張寫實風格的人物照，當作短影音帳號的固定虛擬主持人，用於後續 AI 對口型影片：
+
+人物：一位 30 歲出頭的台灣職場前輩，幹練、親切但帶點犀利感，深色簡約襯衫，髮型俐落。
+
+構圖（重要）：正面直視鏡頭，臉部清晰且佔畫面較大（頭到胸口的半身），五官清楚、雙眼睜開、表情自信自然，臉部沒有被頭髮、手、麥克風或墨鏡遮住。
+
+光線：明亮均勻的正面光，膚色自然。
+背景：乾淨簡單（淺景深的辦公室或都市街景），不要雜亂。
+畫面：直式 9:16，高解析、寫實、像真人專業形象照。
+
+請固定這個長相，我之後會用同一個人物產系列影片。</textarea>
+        <div class="copybar">
+          <button class="ghost" onclick="copyText(document.getElementById('char-prompt').value, this)">📋 複製角色圖 prompt</button>
+        </div>
+        <p class="hint">生出來臉太小或側臉，就跟 ChatGPT 說「臉再大一點、更正面、頭到胸口」重生。滿意就存檔，以後每支都用同一張，別換臉。</p>
+      </section>
+
+      <section class="panel">
+        <h2>🎭 Kling 操作步驟（最簡單路線：AI Avatar）</h2>
+        <ol class="flow">
+          <li>登入 Kling，找 <b>「AI Avatar」</b>（也可能叫 数字人 / 对口型 / Lip Sync），選「圖片 + 音檔」模式。</li>
+          <li>上傳你的 <b>角色圖</b>。</li>
+          <li>聲音選 <b>「上傳音檔」</b>：用工具產腳本後做的口播語音檔（或在 Kling 貼逐字稿、選中文國語 TTS）。</li>
+          <li>比例有得選就選 <b>直式 9:16</b>；長度要放得下整段語音。</li>
+          <li>按 <b>生成</b>，等約 1 分鐘 → <b>下載 mp4</b>。</li>
+          <li>⚠️ 下載前看角落有沒有 <b>浮水印</b>（免費版通常有）、確認朋友帳號 <b>點數</b>夠。</li>
+        </ol>
+        <p class="hint">找不到就找「数字人 / 对口型 / Talking Avatar」。臉動得怪 = 換更正面、臉更大的角色圖。想「邊走邊講」是進階做法（先圖生影片再對口型），第一支先用站著講跑通整條鏈。</p>
+      </section>
+
+      <section class="panel">
+        <h2>🔊 口播語音怎麼來</h2>
+        <p class="hint">兩種都可：①（推薦，聲音每支一致）用免費的 edge-tts 把口播逐字稿轉成台灣中文語音檔，男聲學長 <code>zh-TW-YunJhe</code> / 女聲學姐 <code>zh-TW-HsiaoChen</code>。②直接用 Kling 內建中文 TTS。第一支現成語音與操作見專案的 <code>Kling素材/</code> 資料夾。</p>
+      </section>
+
+      <section class="panel">
+        <h2>🧠 人設 & 內容線（速查）</h2>
+        <p class="hint" id="guide-persona"></p>
+        <div id="guide-pillars" class="chips"></div>
+        <p class="hint">人設、內容線、字幕樣式可在 <code>config.json</code> 改；主題清單也在那裡（<code>topics</code>）。</p>
+      </section>
+
+      <section class="panel">
+        <h2>🧩 各環節用什麼工具</h2>
+        <table class="tools">
+          <tr><th>環節</th><th>工具</th><th>狀態</th></tr>
+          <tr><td>寫腳本</td><td>Groq（免費，可改 Claude）</td><td>✅</td></tr>
+          <tr><td>角色臉（圖）</td><td>ChatGPT 生圖，一次固定</td><td>手動一次</td></tr>
+          <tr><td>口播語音</td><td>edge-tts / Kling TTS</td><td>✅</td></tr>
+          <tr><td>avatar 影片</td><td>Kling 對口型（未來可接 API）</td><td>手動</td></tr>
+          <tr><td>字幕＋合成＋直式</td><td>本機 Whisper + FFmpeg</td><td>✅</td></tr>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
